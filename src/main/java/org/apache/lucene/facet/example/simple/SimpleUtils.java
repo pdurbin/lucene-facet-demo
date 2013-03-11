@@ -45,24 +45,25 @@ public class SimpleUtils {
      */
     public static String[] docTexts = {
         "Is social science is good enough to eat?",
-        "Pray for better results in social science.",};
+        "Pray for better results in social science.",
+        "Ice cream social or donuts?",};
     /**
      * sample documents titles (for the title field).
      */
     public static String[] docTitles = {
         "Social Science: Better than Butter",
-        "God and Social Science",};
+        "God and Social Science",
+        "Donuts and Social Science",};
     /**
      * Categories: categories[D][N] == category-path no. N for document no. D.
      */
     public static CategoryPath[][] categories = {
         {
-            new CategoryPath("author", "Simpson, Homer"),
-        },
+            new CategoryPath("author", "Simpson, Homer"),},
         {
-            new CategoryPath("author", "Flanders, Ned"),
-            
-        },};
+            new CategoryPath("author", "Flanders, Ned"),},
+        {
+            new CategoryPath("author", "Wiggum, Clancy"),},};
     /**
      * Analyzer used in the simple sample.
      */
