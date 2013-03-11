@@ -58,7 +58,7 @@ public class SimpleSearcher {
      */
     public static List<FacetResult> searchWithFacets(IndexReader indexReader,
             TaxonomyReader taxoReader) throws Exception {
-        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("root", "a"), 10);
+        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("author"), 10);
         return searchWithRequest(indexReader, taxoReader, null, facetRequest);
     }
 
@@ -76,7 +76,7 @@ public class SimpleSearcher {
     public static List<FacetResult> searchWithRequest(IndexReader indexReader,
             TaxonomyReader taxoReader, FacetIndexingParams indexingParams,
             FacetRequest... facetRequests) throws Exception {
-        Query q = new TermQuery(new Term(SimpleUtils.TEXT, "white"));
+        Query q = new TermQuery(new Term(SimpleUtils.TEXT, "social"));
         return searchWithRequestAndQuery(q, indexReader, taxoReader,
                 indexingParams, facetRequests);
     }
@@ -146,10 +146,10 @@ public class SimpleSearcher {
             TaxonomyReader taxoReader) throws Exception {
 
         // base query the user is interested in
-        Query baseQuery = new TermQuery(new Term(SimpleUtils.TEXT, "white"));
+        Query baseQuery = new TermQuery(new Term(SimpleUtils.TEXT, "social"));
 
         // facet of interest
-        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("root", "a"), 10);
+        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("author"), 10);
 
         // initial search - all docs matching the base query will contribute to the accumulation 
         List<FacetResult> res1 = searchWithRequest(indexReader, taxoReader, null, facetRequest);

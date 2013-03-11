@@ -44,25 +44,24 @@ public class SimpleUtils {
      * sample documents text (for the text field).
      */
     public static String[] docTexts = {
-        "the white car is the one I want.",
-        "the white dog does not belong to anyone.",};
+        "Is social science is good enough to eat?",
+        "Pray for better results in social science.",};
     /**
      * sample documents titles (for the title field).
      */
     public static String[] docTitles = {
-        "white car",
-        "white dog",};
+        "Social Science: Better than Butter",
+        "God and Social Science",};
     /**
      * Categories: categories[D][N] == category-path no. N for document no. D.
      */
     public static CategoryPath[][] categories = {
         {
-            new CategoryPath("root", "a", "f1"),
-            new CategoryPath("root", "a", "f2")
+            new CategoryPath("author", "Simpson, Homer"),
         },
         {
-            new CategoryPath("root", "a", "f1"),
-            new CategoryPath("root", "a", "f3")
+            new CategoryPath("author", "Flanders, Ned"),
+            
         },};
     /**
      * Analyzer used in the simple sample.
