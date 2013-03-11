@@ -10,6 +10,8 @@ import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.facet.example.ExampleResult;
 import org.apache.lucene.facet.example.ExampleUtils;
 import org.apache.lucene.facet.search.results.FacetResult;
+import org.apache.lucene.facet.search.results.FacetResultNode;
+import org.apache.lucene.facet.taxonomy.CategoryPath;
 import org.apache.lucene.facet.taxonomy.TaxonomyReader;
 import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyReader;
 
@@ -44,8 +46,21 @@ public class SimpleMain {
      */
     public static void main(String[] args) throws Exception {
         ExampleUtils.log("Running runSimple()...");
-        ExampleResult exampleResultSimple = new SimpleMain().runSimple();
-        ExampleUtils.log("Dumping exampleResult object from runSimple...\n" + exampleResultSimple.getFacetResults().toString());
+        List<FacetResult> exampleResultSimpleList = new SimpleMain().runSimple().getFacetResults();
+        for (Iterator<FacetResult> it = exampleResultSimpleList.iterator(); it.hasNext();) {
+            FacetResult facetResult = it.next();
+            ExampleUtils.log("Dumping facet result from runSimple..." + facetResult.toString());
+            ExampleUtils.log("Iterating through facet results...");
+            for (FacetResultNode n : facetResult.getFacetResultNode().getSubResults()) {
+                CategoryPath label = n.getLabel();
+                String last = n.getLabel().lastComponent().toString();
+                double value = n.getValue();
+                ExampleUtils.log("label = " + label);
+                ExampleUtils.log("last = " + last);
+                ExampleUtils.log("value = " + value);
+                ExampleUtils.log("---");
+            }
+        }
 
         ExampleUtils.log("Running runDrillDown()...");
         List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown().getFacetResults();
