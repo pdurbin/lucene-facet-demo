@@ -160,6 +160,10 @@ public class SimpleSearcher {
 
         // facet of interest
         CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("author"), 10);
+//        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("productionDate"), 10);
+//        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("keyword"), 10);
+//        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("topicClassification"), 10);
+//        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("dvName"), 10);
 
         // initial search - all docs matching the base query will contribute to the accumulation 
         List<FacetResult> res1 = searchWithRequest(indexReader, taxoReader, null, facetRequest);

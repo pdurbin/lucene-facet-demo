@@ -50,7 +50,7 @@ public class SimpleMain {
         ExampleUtils.log("Interating through facet results...");
         for (Iterator<FacetResult> it = exampleResultSimpleList.iterator(); it.hasNext();) {
             FacetResult facetResult = it.next();
-//            ExampleUtils.log("Dumping facet result from runSimple..." + facetResult.toString());
+            //            ExampleUtils.log("Dumping facet result from runSimple..." + facetResult.toString());
             ExampleUtils.log("CategoryPath label: " + facetResult.getFacetResultNode().getLabel());
             for (FacetResultNode n : facetResult.getFacetResultNode().getSubResults()) {
                 CategoryPath label = n.getLabel();
@@ -63,12 +63,25 @@ public class SimpleMain {
             }
         }
 
-//        ExampleUtils.log("Running runDrillDown()...");
-//        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown().getFacetResults();
-//        for (Iterator<FacetResult> it = exampleResultDrillDownList.iterator(); it.hasNext();) {
-//            FacetResult FacetResult = it.next();
-//            ExampleUtils.log("Facet result...\n" + FacetResult.toString());
-//        }
+
+        ExampleUtils.log("================================");
+        ExampleUtils.log("Running runDrillDown()...");
+        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown().getFacetResults();
+        ExampleUtils.log("Iterating though runDrillDown facet results...");
+        for (Iterator<FacetResult> it = exampleResultDrillDownList.iterator(); it.hasNext();) {
+            FacetResult facetResult = it.next();
+            ExampleUtils.log("Facet result...\n" + facetResult.toString());
+            ExampleUtils.log("CategoryPath label: " + facetResult.getFacetResultNode().getLabel());
+            for (FacetResultNode n : facetResult.getFacetResultNode().getSubResults()) {
+                CategoryPath label = n.getLabel();
+                String last = n.getLabel().lastComponent().toString();
+                double value = n.getValue();
+                ExampleUtils.log("label = " + label);
+                ExampleUtils.log("last = " + last);
+                ExampleUtils.log("value = " + value);
+                ExampleUtils.log("---");
+            }
+        }
         ExampleUtils.log("DONE");
     }
 
