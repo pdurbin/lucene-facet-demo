@@ -1,5 +1,6 @@
 package org.apache.lucene.facet.example.simple;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.lucene.index.IndexReader;
@@ -42,8 +43,16 @@ public class SimpleMain {
      * sample simplicity
      */
     public static void main(String[] args) throws Exception {
-        new SimpleMain().runSimple();
-        new SimpleMain().runDrillDown().getFacetResults();
+        ExampleUtils.log("Running runSimple()...");
+        ExampleResult exampleResultSimple = new SimpleMain().runSimple();
+        ExampleUtils.log("Dumping exampleResult object from runSimple...\n" + exampleResultSimple.getFacetResults().toString());
+
+        ExampleUtils.log("Running runDrillDown()...");
+        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown().getFacetResults();
+        for (Iterator<FacetResult> it = exampleResultDrillDownList.iterator(); it.hasNext();) {
+            FacetResult FacetResult = it.next();
+            ExampleUtils.log("Facet result...\n" + FacetResult.toString());
+        }
         ExampleUtils.log("DONE");
     }
 

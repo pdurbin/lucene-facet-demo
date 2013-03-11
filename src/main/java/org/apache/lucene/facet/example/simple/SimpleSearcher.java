@@ -127,7 +127,7 @@ public class SimpleSearcher {
 
         int i = 0;
         for (FacetResult facetResult : res) {
-            ExampleUtils.log("Res " + (i++) + ": " + facetResult);
+//            ExampleUtils.log("Res " + (i++) + ": " + facetResult);
         }
 
         return res;
