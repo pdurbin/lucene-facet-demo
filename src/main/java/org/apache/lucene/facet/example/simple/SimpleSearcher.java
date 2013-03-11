@@ -1,5 +1,6 @@
 package org.apache.lucene.facet.example.simple;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,8 +59,17 @@ public class SimpleSearcher {
      */
     public static List<FacetResult> searchWithFacets(IndexReader indexReader,
             TaxonomyReader taxoReader) throws Exception {
-        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("author"), 10);
-        return searchWithRequest(indexReader, taxoReader, null, facetRequest);
+        List<CountFacetRequest> countFacetRequestsList = new ArrayList<CountFacetRequest>();
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("author"), 10));
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("productionDate"), 10));
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("keyword"), 10));
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("topicClassification"), 10));
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("dvName"), 10));
+        CountFacetRequest[] countFacetRequestsArray = new CountFacetRequest[countFacetRequestsList.size()];
+        for (int i = 0; i < countFacetRequestsList.size(); i++) {
+            countFacetRequestsArray[i] = countFacetRequestsList.get(i);
+        }
+        return searchWithRequest(indexReader, taxoReader, null, countFacetRequestsArray);
     }
 
     /**

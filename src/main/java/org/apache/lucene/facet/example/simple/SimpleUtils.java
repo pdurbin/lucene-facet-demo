@@ -59,11 +59,26 @@ public class SimpleUtils {
      */
     public static CategoryPath[][] categories = {
         {
-            new CategoryPath("author", "Simpson, Homer"),},
+            new CategoryPath("author", "Simpson, Homer"),
+            new CategoryPath("productionDate", "2013-03-11"),
+            /**
+             * todo support more than one keyword
+             */
+            new CategoryPath("keyword", "butter"),
+            new CategoryPath("topicClassification", "Cooking"),
+            new CategoryPath("dvName", "Homer Simpson"),},
         {
-            new CategoryPath("author", "Flanders, Ned"),},
+            new CategoryPath("author", "Flanders, Ned"),
+            new CategoryPath("productionDate", "2013-03-10"),
+            new CategoryPath("keyword", "scripture"),
+            new CategoryPath("topicClassification", "Religion"),
+            new CategoryPath("dvName", "Ned Flanders"),},
         {
-            new CategoryPath("author", "Wiggum, Clancy"),},};
+            new CategoryPath("author", "Wiggum, Clancy"),
+            new CategoryPath("productionDate", "2012-03-09"),
+            new CategoryPath("keyword", "pastries"),
+            new CategoryPath("topicClassification", "Cooking"),
+            new CategoryPath("dvName", "Clancy Wiggum"),},};
     /**
      * Analyzer used in the simple sample.
      */
