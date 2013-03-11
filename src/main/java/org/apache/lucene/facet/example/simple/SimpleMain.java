@@ -47,10 +47,11 @@ public class SimpleMain {
     public static void main(String[] args) throws Exception {
         ExampleUtils.log("Running runSimple()...");
         List<FacetResult> exampleResultSimpleList = new SimpleMain().runSimple().getFacetResults();
+        ExampleUtils.log("Interating through facet results...");
         for (Iterator<FacetResult> it = exampleResultSimpleList.iterator(); it.hasNext();) {
             FacetResult facetResult = it.next();
-            ExampleUtils.log("Dumping facet result from runSimple..." + facetResult.toString());
-            ExampleUtils.log("Iterating through facet results...");
+//            ExampleUtils.log("Dumping facet result from runSimple..." + facetResult.toString());
+            ExampleUtils.log("CategoryPath label: " + facetResult.getFacetResultNode().getLabel());
             for (FacetResultNode n : facetResult.getFacetResultNode().getSubResults()) {
                 CategoryPath label = n.getLabel();
                 String last = n.getLabel().lastComponent().toString();
@@ -62,12 +63,12 @@ public class SimpleMain {
             }
         }
 
-        ExampleUtils.log("Running runDrillDown()...");
-        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown().getFacetResults();
-        for (Iterator<FacetResult> it = exampleResultDrillDownList.iterator(); it.hasNext();) {
-            FacetResult FacetResult = it.next();
-            ExampleUtils.log("Facet result...\n" + FacetResult.toString());
-        }
+//        ExampleUtils.log("Running runDrillDown()...");
+//        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown().getFacetResults();
+//        for (Iterator<FacetResult> it = exampleResultDrillDownList.iterator(); it.hasNext();) {
+//            FacetResult FacetResult = it.next();
+//            ExampleUtils.log("Facet result...\n" + FacetResult.toString());
+//        }
         ExampleUtils.log("DONE");
     }
 
