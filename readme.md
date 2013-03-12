@@ -9,97 +9,51 @@
     murphy:lucene-facet-demo pdurbin$ ./go.sh 
     Running runSimple()...
     index the sample documents...
-    Indexed 3 documents with overall 15 facets.
+    Indexed 4 documents with overall 20 facets.
     search the sample documents...
     Query: text:social
-    Interating through facet results...
-    CategoryPath label: author
-    label = author/Wiggum, Clancy
-    last = Wiggum, Clancy
-    value = 1.0
-    ---
-    label = author/Flanders, Ned
-    last = Flanders, Ned
-    value = 1.0
-    ---
-    label = author/Simpson, Homer
-    last = Simpson, Homer
-    value = 1.0
-    ---
-    CategoryPath label: productionDate
-    label = productionDate/2012-03-09
-    last = 2012-03-09
-    value = 1.0
-    ---
-    label = productionDate/2013-03-10
-    last = 2013-03-10
-    value = 1.0
-    ---
-    label = productionDate/2013-03-11
-    last = 2013-03-11
-    value = 1.0
-    ---
-    CategoryPath label: keyword
-    label = keyword/pastries
-    last = pastries
-    value = 1.0
-    ---
-    label = keyword/scripture
-    last = scripture
-    value = 1.0
-    ---
-    label = keyword/butter
-    last = butter
-    value = 1.0
-    ---
-    CategoryPath label: topicClassification
-    label = topicClassification/Cooking
-    last = Cooking
-    value = 2.0
-    ---
-    label = topicClassification/Religion
-    last = Religion
-    value = 1.0
-    ---
-    CategoryPath label: dvName
-    label = dvName/Clancy Wiggum
-    last = Clancy Wiggum
-    value = 1.0
-    ---
-    label = dvName/Ned Flanders
-    last = Ned Flanders
-    value = 1.0
-    ---
-    label = dvName/Homer Simpson
-    last = Homer Simpson
-    value = 1.0
-    ---
+    Iterating through 5 facets/categories...
+    - category 0: author
+      - expect 2.0 hits from a faceted search for "author/Simpson, Homer"
+      - expect 1.0 hits from a faceted search for "author/Wiggum, Clancy"
+      - expect 1.0 hits from a faceted search for "author/Flanders, Ned"
+    - category 1: productionDate
+      - expect 3.0 hits from a faceted search for "productionDate/2013-03-09"
+      - expect 1.0 hits from a faceted search for "productionDate/2013-03-10"
+    - category 2: keyword
+      - expect 1.0 hits from a faceted search for "keyword/pastries"
+      - expect 1.0 hits from a faceted search for "keyword/scripture"
+      - expect 1.0 hits from a faceted search for "keyword/football"
+      - expect 1.0 hits from a faceted search for "keyword/butter"
+    - category 3: topicClassification
+      - expect 2.0 hits from a faceted search for "topicClassification/Cooking"
+      - expect 1.0 hits from a faceted search for "topicClassification/Religion"
+      - expect 1.0 hits from a faceted search for "topicClassification/TV"
+    - category 4: dvName
+      - expect 2.0 hits from a faceted search for "dvName/Homer Simpson Dataverse"
+      - expect 1.0 hits from a faceted search for "dvName/Clancy Wiggum Dataverse"
+      - expect 1.0 hits from a faceted search for "dvName/Ned Flanders Dataverse"
     ================================
-    Running runDrillDown()...
+    Running runDrillDown() with faceted search for "topicClassification/Cooking"
     index the sample documents...
-    Indexed 3 documents with overall 15 facets.
+    Indexed 4 documents with overall 20 facets.
     search the sample documents...
     Query: text:social
-    Query: +text:social +$facets:author?Flanders, Ned
-    Iterating though runDrillDown facet results...
-    Facet result...
-    Request: author nRes=10 nLbl=10
-    Num valid Descendants (up to specified depth): 1
-            Facet Result Node with 1 sub result nodes.
-            Name: author
-            Value: 1.0
-            Residue: 0.0
-
-            Subresult #0
-                    Facet Result Node with 0 sub result nodes.
-                    Name: author/Flanders, Ned
-                    Value: 1.0
-                    Residue: 0.0
-
-    CategoryPath label: author
-    label = author/Flanders, Ned
-    last = Flanders, Ned
-    value = 1.0
-    ---
+    categoryOfInterest = topicClassification/Cooking
+    Query: +text:social +$facets:topicClassification?Cooking
+    Iterating though 5 facets/categories for facet query "topicClassification/Cooking"
+    - category 0: author
+      - hits for author/Wiggum, Clancy: 1.0
+      - hits for author/Simpson, Homer: 1.0
+    - category 1: productionDate
+      - hits for productionDate/2013-03-09: 2.0
+    - category 2: keyword
+      - hits for keyword/pastries: 1.0
+      - hits for keyword/butter: 1.0
+    - category 3: topicClassification
+      - hits for topicClassification/Cooking: 2.0
+    - category 4: dvName
+      - hits for dvName/Clancy Wiggum Dataverse: 1.0
+      - hits for dvName/Homer Simpson Dataverse: 1.0
     DONE
     murphy:lucene-facet-demo pdurbin$ 
