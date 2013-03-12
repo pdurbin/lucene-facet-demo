@@ -47,6 +47,7 @@ public class SimpleUtils {
         "Is social science is good enough to eat?",
         "Is football a social science?",
         "Pray for better results in social science.",
+        "We know how to play softball.",
         "Ice cream social or donuts?",};
     /**
      * sample documents titles (for the title field).
@@ -55,6 +56,7 @@ public class SimpleUtils {
         "Social Science: Better than Butter",
         "Social Dynamics in Football",
         "God and Social Science",
+        "Softball for Cops",
         "Donuts and Social Science",};
     /**
      * Categories: categories[D][N] == category-path no. N for document no. D.
@@ -72,7 +74,7 @@ public class SimpleUtils {
         {
             new CategoryPath("author", "Simpson, Homer"),
             new CategoryPath("productionDate", "2013-03-09"),
-            new CategoryPath("keyword", "football"),
+            new CategoryPath("keyword", "sports"),
             new CategoryPath("topicClassification", "TV"),
             new CategoryPath("dvName", "Homer Simpson Dataverse"),},
         {
@@ -83,9 +85,15 @@ public class SimpleUtils {
             new CategoryPath("dvName", "Ned Flanders Dataverse"),},
         {
             new CategoryPath("author", "Wiggum, Clancy"),
-            new CategoryPath("productionDate", "2013-03-09"),
+            new CategoryPath("productionDate", "2013-03-10"),
             new CategoryPath("keyword", "pastries"),
             new CategoryPath("topicClassification", "Cooking"),
+            new CategoryPath("dvName", "Clancy Wiggum Dataverse"),},
+        {
+            new CategoryPath("author", "Wiggum, Clancy"),
+            new CategoryPath("productionDate", "2013-03-09"),
+            new CategoryPath("keyword", "sports"),
+            new CategoryPath("topicClassification", "Recreation"),
             new CategoryPath("dvName", "Clancy Wiggum Dataverse"),},};
     /**
      * Analyzer used in the simple sample.
