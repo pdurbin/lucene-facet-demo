@@ -9,21 +9,26 @@
     murphy:lucene-facet-demo pdurbin$ ./go.sh 
     Running runSimple()...
     index the sample documents...
-    Indexed 4 documents with overall 20 facets.
+    Indexed 5 documents with overall 25 facets.
     search the sample documents...
     Query: text:social
+    Found 4 documents with query "text:social"
+    - title 0: Social Science: Better than Butter
+    - title 1: Social Dynamics in Football
+    - title 2: God and Social Science
+    - title 3: Donuts and Social Science
     Iterating through 5 facets/categories...
     - category 0: author
       - expect 2.0 hits from a faceted search for "author/Simpson, Homer"
       - expect 1.0 hits from a faceted search for "author/Wiggum, Clancy"
       - expect 1.0 hits from a faceted search for "author/Flanders, Ned"
     - category 1: productionDate
-      - expect 3.0 hits from a faceted search for "productionDate/2013-03-09"
-      - expect 1.0 hits from a faceted search for "productionDate/2013-03-10"
+      - expect 2.0 hits from a faceted search for "productionDate/2013-03-10"
+      - expect 2.0 hits from a faceted search for "productionDate/2013-03-09"
     - category 2: keyword
       - expect 1.0 hits from a faceted search for "keyword/pastries"
       - expect 1.0 hits from a faceted search for "keyword/scripture"
-      - expect 1.0 hits from a faceted search for "keyword/football"
+      - expect 1.0 hits from a faceted search for "keyword/sports"
       - expect 1.0 hits from a faceted search for "keyword/butter"
     - category 3: topicClassification
       - expect 2.0 hits from a faceted search for "topicClassification/Cooking"
@@ -36,17 +41,26 @@
     ================================
     Running runDrillDown() with faceted search for "topicClassification/Cooking"
     index the sample documents...
-    Indexed 4 documents with overall 20 facets.
+    Indexed 5 documents with overall 25 facets.
     search the sample documents...
     Query: text:social
+    Found 4 documents with query "text:social"
+    - title 0: Social Science: Better than Butter
+    - title 1: Social Dynamics in Football
+    - title 2: God and Social Science
+    - title 3: Donuts and Social Science
     categoryOfInterest = topicClassification/Cooking
     Query: +text:social +$facets:topicClassification?Cooking
+    Found 2 documents with query "+text:social +$facets:topicClassification?Cooking"
+    - title 0: Social Science: Better than Butter
+    - title 1: Donuts and Social Science
     Iterating though 5 facets/categories for facet query "topicClassification/Cooking"
     - category 0: author
       - hits for author/Wiggum, Clancy: 1.0
       - hits for author/Simpson, Homer: 1.0
     - category 1: productionDate
-      - hits for productionDate/2013-03-09: 2.0
+      - hits for productionDate/2013-03-10: 1.0
+      - hits for productionDate/2013-03-09: 1.0
     - category 2: keyword
       - hits for keyword/pastries: 1.0
       - hits for keyword/butter: 1.0
