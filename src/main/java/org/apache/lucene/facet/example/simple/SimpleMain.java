@@ -63,23 +63,22 @@ public class SimpleMain {
             }
         }
 
-
         ExampleUtils.log("================================");
-        ExampleUtils.log("Running runDrillDown()...");
-        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown().getFacetResults();
-        ExampleUtils.log("Iterating though runDrillDown facet results...");
-        for (Iterator<FacetResult> it = exampleResultDrillDownList.iterator(); it.hasNext();) {
-            FacetResult facetResult = it.next();
-            ExampleUtils.log("Facet result...\n" + facetResult.toString());
-            ExampleUtils.log("CategoryPath label: " + facetResult.getFacetResultNode().getLabel());
+
+        CategoryPath categoryPathOfInterest = new CategoryPath("topicClassification", "Cooking");
+//        CategoryPath categoryPathOfInterest = new CategoryPath("author", "Flanders, Ned");
+        ExampleUtils.log("Running runDrillDown() with category path " + categoryPathOfInterest.toString());
+        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown(categoryPathOfInterest).getFacetResults();
+        int numResults = exampleResultDrillDownList.size();
+        ExampleUtils.log("Iterating though " + numResults + " facet results for facet query \"" + categoryPathOfInterest.toString() + "\"");
+        for (int i = 0; i < exampleResultDrillDownList.size(); i++) {
+            FacetResult facetResult = exampleResultDrillDownList.get(i);
+            ExampleUtils.log("Facet result " + i + " label: " + facetResult.getFacetResultNode().getLabel());
             for (FacetResultNode n : facetResult.getFacetResultNode().getSubResults()) {
                 CategoryPath label = n.getLabel();
                 String last = n.getLabel().lastComponent().toString();
-                double value = n.getValue();
-                ExampleUtils.log("label = " + label);
-                ExampleUtils.log("last = " + last);
-                ExampleUtils.log("value = " + value);
-                ExampleUtils.log("---");
+                double hits = n.getValue();
+                ExampleUtils.log("  Hits for " + label + ": " + hits);
             }
         }
         ExampleUtils.log("DONE");
@@ -110,7 +109,7 @@ public class SimpleMain {
         return res;
     }
 
-    public ExampleResult runDrillDown() throws Exception {
+    public ExampleResult runDrillDown(CategoryPath categoryPathOfInterest) throws Exception {
         // create Directories for the search index and for the taxonomy index
         Directory indexDir = new RAMDirectory();
         Directory taxoDir = new RAMDirectory();
@@ -124,7 +123,7 @@ public class SimpleMain {
         IndexReader indexReader = IndexReader.open(indexDir, true);
 
         ExampleUtils.log("search the sample documents...");
-        List<FacetResult> facetRes = SimpleSearcher.searchWithDrillDown(indexReader, taxo);
+        List<FacetResult> facetRes = SimpleSearcher.searchWithDrillDown(indexReader, taxo, categoryPathOfInterest);
 
         // close readers
         taxo.close();

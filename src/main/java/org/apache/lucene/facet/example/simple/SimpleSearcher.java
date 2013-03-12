@@ -153,36 +153,37 @@ public class SimpleSearcher {
      * @return facet results
      */
     public static List<FacetResult> searchWithDrillDown(IndexReader indexReader,
-            TaxonomyReader taxoReader) throws Exception {
+            TaxonomyReader taxoReader, CategoryPath categoryPathOfInterest) throws Exception {
 
         // base query the user is interested in
         Query baseQuery = new TermQuery(new Term(SimpleUtils.TEXT, "social"));
 
-        // facet of interest
-        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("author"), 10);
-//        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("productionDate"), 10);
-//        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("keyword"), 10);
-//        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("topicClassification"), 10);
-//        CountFacetRequest facetRequest = new CountFacetRequest(new CategoryPath("dvName"), 10);
-
+        // facets of interest
+        List<CountFacetRequest> countFacetRequestsList = new ArrayList<CountFacetRequest>();
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("author"), 10));
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("productionDate"), 10));
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("keyword"), 10));
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("topicClassification"), 10));
+        countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("dvName"), 10));
+        CountFacetRequest[] countFacetRequestsArray = new CountFacetRequest[countFacetRequestsList.size()];
+        for (int i = 0; i < countFacetRequestsList.size(); i++) {
+            countFacetRequestsArray[i] = countFacetRequestsList.get(i);
+        }
+        
         // initial search - all docs matching the base query will contribute to the accumulation 
-        List<FacetResult> res1 = searchWithRequest(indexReader, taxoReader, null, facetRequest);
+        List<FacetResult> res1 = searchWithRequest(indexReader, taxoReader, null, countFacetRequestsArray);
 
         // a single result (because there was a single request) 
         FacetResult fres = res1.get(0);
 
-        // assume the user is interested in the second sub-result
-        // (just take the second sub-result returned by the iterator - we know there are 3 results!)
-        Iterator<? extends FacetResultNode> resIterator = fres.getFacetResultNode().getSubResults().iterator();
-        resIterator.next(); // skip first result
-        CategoryPath categoryOfInterest = resIterator.next().getLabel();
+        ExampleUtils.log("categoryOfInterest = " + categoryPathOfInterest);
 
         // drill-down preparation: turn the base query into a drill-down query for the category of interest
-        Query q2 = DrillDown.query(baseQuery, categoryOfInterest);
+        Query q2 = DrillDown.query(baseQuery, categoryPathOfInterest);
 
         // that's it - search with the new query and we're done!
         // only documents both matching the base query AND containing the 
         // category of interest will contribute to the new accumulation
-        return searchWithRequestAndQuery(q2, indexReader, taxoReader, null, facetRequest);
+        return searchWithRequestAndQuery(q2, indexReader, taxoReader, null, countFacetRequestsArray);
     }
 }
