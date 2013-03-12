@@ -45,8 +45,12 @@ public class SimpleMain {
      * sample simplicity
      */
     public static void main(String[] args) throws Exception {
+
+        String searchString = "social";
+//        String searchString = "softball";
+
         ExampleUtils.log("Running runSimple()...");
-        List<FacetResult> exampleResultSimpleList = new SimpleMain().runSimple().getFacetResults();
+        List<FacetResult> exampleResultSimpleList = new SimpleMain().runSimple(searchString).getFacetResults();
         int numSimpleResults = exampleResultSimpleList.size();
         ExampleUtils.log("Iterating through " + numSimpleResults + " facets/categories...");
         for (int i = 0; i < exampleResultSimpleList.size(); i++) {
@@ -67,7 +71,7 @@ public class SimpleMain {
 //        CategoryPath categoryPathOfInterest = new CategoryPath("author", "Simpson, Homer");
 //        CategoryPath categoryPathOfInterest = new CategoryPath("author", "Flanders, Ned");
         ExampleUtils.log("Running runDrillDown() with faceted search for \"" + categoryPathOfInterest.toString() + "\"");
-        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown(categoryPathOfInterest).getFacetResults();
+        List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown(searchString, categoryPathOfInterest).getFacetResults();
         int numDrillDownResults = exampleResultDrillDownList.size();
         ExampleUtils.log("Iterating though " + numDrillDownResults + " facets/categories for facet query \"" + categoryPathOfInterest.toString() + "\"");
         for (int i = 0; i < exampleResultDrillDownList.size(); i++) {
@@ -83,7 +87,7 @@ public class SimpleMain {
         ExampleUtils.log("DONE");
     }
 
-    public ExampleResult runSimple() throws Exception {
+    public ExampleResult runSimple(String searchString) throws Exception {
         // create Directories for the search index and for the taxonomy index
         Directory indexDir = new RAMDirectory();
         Directory taxoDir = new RAMDirectory();
@@ -97,7 +101,7 @@ public class SimpleMain {
         IndexReader indexReader = IndexReader.open(indexDir, true);
 
         ExampleUtils.log("search the sample documents...");
-        List<FacetResult> facetRes = SimpleSearcher.searchWithFacets(indexReader, taxo);
+        List<FacetResult> facetRes = SimpleSearcher.searchWithFacets(searchString, indexReader, taxo);
 
         // close readers
         taxo.close();
@@ -108,7 +112,7 @@ public class SimpleMain {
         return res;
     }
 
-    public ExampleResult runDrillDown(CategoryPath categoryPathOfInterest) throws Exception {
+    public ExampleResult runDrillDown(String searchString, CategoryPath categoryPathOfInterest) throws Exception {
         // create Directories for the search index and for the taxonomy index
         Directory indexDir = new RAMDirectory();
         Directory taxoDir = new RAMDirectory();
@@ -122,7 +126,7 @@ public class SimpleMain {
         IndexReader indexReader = IndexReader.open(indexDir, true);
 
         ExampleUtils.log("search the sample documents...");
-        List<FacetResult> facetRes = SimpleSearcher.searchWithDrillDown(indexReader, taxo, categoryPathOfInterest);
+        List<FacetResult> facetRes = SimpleSearcher.searchWithDrillDown(searchString, indexReader, taxo, categoryPathOfInterest);
 
         // close readers
         taxo.close();

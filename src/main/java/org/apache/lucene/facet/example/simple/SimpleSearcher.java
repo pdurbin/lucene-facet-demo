@@ -59,7 +59,7 @@ public class SimpleSearcher {
      * sample simplicity
      * @return facet results
      */
-    public static List<FacetResult> searchWithFacets(IndexReader indexReader,
+    public static List<FacetResult> searchWithFacets(String searchString, IndexReader indexReader,
             TaxonomyReader taxoReader) throws Exception {
         List<CountFacetRequest> countFacetRequestsList = new ArrayList<CountFacetRequest>();
         countFacetRequestsList.add(new CountFacetRequest(new CategoryPath("author"), 10));
@@ -71,7 +71,7 @@ public class SimpleSearcher {
         for (int i = 0; i < countFacetRequestsList.size(); i++) {
             countFacetRequestsArray[i] = countFacetRequestsList.get(i);
         }
-        return searchWithRequest(indexReader, taxoReader, null, countFacetRequestsArray);
+        return searchWithRequest(searchString, indexReader, taxoReader, null, countFacetRequestsArray);
     }
 
     /**
@@ -85,10 +85,10 @@ public class SimpleSearcher {
      * sample simplicity
      * @return facet results
      */
-    public static List<FacetResult> searchWithRequest(IndexReader indexReader,
+    public static List<FacetResult> searchWithRequest(String searchString, IndexReader indexReader,
             TaxonomyReader taxoReader, FacetIndexingParams indexingParams,
             FacetRequest... facetRequests) throws Exception {
-        Query q = new TermQuery(new Term(SimpleUtils.TEXT, "social"));
+        Query q = new TermQuery(new Term(SimpleUtils.TEXT, searchString));
         return searchWithRequestAndQuery(q, indexReader, taxoReader,
                 indexingParams, facetRequests);
     }
@@ -163,11 +163,11 @@ public class SimpleSearcher {
      * sample simplicity
      * @return facet results
      */
-    public static List<FacetResult> searchWithDrillDown(IndexReader indexReader,
+    public static List<FacetResult> searchWithDrillDown(String searchString, IndexReader indexReader,
             TaxonomyReader taxoReader, CategoryPath categoryPathOfInterest) throws Exception {
 
         // base query the user is interested in
-        Query baseQuery = new TermQuery(new Term(SimpleUtils.TEXT, "social"));
+        Query baseQuery = new TermQuery(new Term(SimpleUtils.TEXT, searchString));
 
         // facets of interest
         List<CountFacetRequest> countFacetRequestsList = new ArrayList<CountFacetRequest>();
@@ -182,7 +182,7 @@ public class SimpleSearcher {
         }
 
         // initial search - all docs matching the base query will contribute to the accumulation 
-        List<FacetResult> res1 = searchWithRequest(indexReader, taxoReader, null, countFacetRequestsArray);
+        List<FacetResult> res1 = searchWithRequest(searchString, indexReader, taxoReader, null, countFacetRequestsArray);
 
         // a single result (because there was a single request) 
         FacetResult fres = res1.get(0);
