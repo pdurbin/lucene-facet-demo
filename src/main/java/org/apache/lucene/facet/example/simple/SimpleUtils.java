@@ -64,35 +64,40 @@ public class SimpleUtils {
     public static CategoryPath[][] categories = {
         {
             new CategoryPath("author", "Simpson, Homer"),
+            new CategoryPath("author", "Wiggum, Clancy"),
             new CategoryPath("productionDate", "2013-03-09"),
-            /**
-             * todo support more than one keyword
-             */
             new CategoryPath("keyword", "butter"),
+            new CategoryPath("keyword", "pastries"),
+            new CategoryPath("keyword", "food"),
             new CategoryPath("topicClassification", "Cooking"),
             new CategoryPath("dvName", "Homer Simpson Dataverse"),},
         {
             new CategoryPath("author", "Simpson, Homer"),
             new CategoryPath("productionDate", "2013-03-09"),
             new CategoryPath("keyword", "sports"),
+            new CategoryPath("keyword", "football"),
             new CategoryPath("topicClassification", "TV"),
             new CategoryPath("dvName", "Homer Simpson Dataverse"),},
         {
             new CategoryPath("author", "Flanders, Ned"),
             new CategoryPath("productionDate", "2013-03-10"),
             new CategoryPath("keyword", "scripture"),
+            new CategoryPath("keyword", "prayer"),
             new CategoryPath("topicClassification", "Religion"),
             new CategoryPath("dvName", "Ned Flanders Dataverse"),},
         {
             new CategoryPath("author", "Wiggum, Clancy"),
             new CategoryPath("productionDate", "2013-03-09"),
             new CategoryPath("keyword", "sports"),
+            new CategoryPath("keyword", "softball"),
             new CategoryPath("topicClassification", "Recreation"),
             new CategoryPath("dvName", "Clancy Wiggum Dataverse"),},
         {
             new CategoryPath("author", "Wiggum, Clancy"),
             new CategoryPath("productionDate", "2013-03-10"),
             new CategoryPath("keyword", "pastries"),
+            new CategoryPath("keyword", "donuts"),
+            new CategoryPath("keyword", "food"),
             new CategoryPath("topicClassification", "Cooking"),
             new CategoryPath("dvName", "Clancy Wiggum Dataverse"),},};
     /**
