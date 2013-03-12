@@ -115,8 +115,7 @@ public class SimpleSearcher {
         IndexSearcher searcher = new IndexSearcher(indexReader);
 
         // collect matching documents into a collector
-//        TopScoreDocCollector topDocsCollector = TopScoreDocCollector.create(10, true);
-        DocumentCollector documentCollector = new DocumentCollector(searcher);
+        TopScoreDocCollector topDocsCollector = TopScoreDocCollector.create(10, true);
 
         if (indexingParams == null) {
             indexingParams = new DefaultFacetIndexingParams();
@@ -133,13 +132,12 @@ public class SimpleSearcher {
         FacetsCollector facetsCollector = new FacetsCollector(facetSearchParams, indexReader, taxoReader);
 
         // perform documents search and facets accumulation
-//        searcher.search(q, MultiCollector.wrap(topDocsCollector, facetsCollector));
-        searcher.search(q, MultiCollector.wrap(documentCollector, facetsCollector));
+        searcher.search(q, MultiCollector.wrap(topDocsCollector, facetsCollector));
 
-        List hits = documentCollector.getStudies();
-        ExampleUtils.log("Found " + hits.size() + " documents with query " + "\"" + q + "\"");
-        for (int i = 0; i < hits.size(); i++) {
-            ScoreDoc scoreDoc = (ScoreDoc) hits.get(i);
+        ScoreDoc[] hits = topDocsCollector.topDocs().scoreDocs;
+        ExampleUtils.log("Found " + hits.length + " documents with query " + "\"" + q + "\"");
+        for (int i = 0; i < hits.length; i++) {
+            ScoreDoc scoreDoc = hits[i];
             Document d = searcher.doc(scoreDoc.doc);
             ExampleUtils.log("- title " + i + ": " + d.get("title"));
         }
