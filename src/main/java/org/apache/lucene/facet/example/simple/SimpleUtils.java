@@ -45,6 +45,7 @@ public class SimpleUtils {
      */
     public static String[] docTexts = {
         "Is social science is good enough to eat?",
+        "Is football a social science?",
         "Pray for better results in social science.",
         "Ice cream social or donuts?",};
     /**
@@ -52,6 +53,7 @@ public class SimpleUtils {
      */
     public static String[] docTitles = {
         "Social Science: Better than Butter",
+        "Social Dynamics in Football",
         "God and Social Science",
         "Donuts and Social Science",};
     /**
@@ -60,25 +62,31 @@ public class SimpleUtils {
     public static CategoryPath[][] categories = {
         {
             new CategoryPath("author", "Simpson, Homer"),
-            new CategoryPath("productionDate", "2013-03-11"),
+            new CategoryPath("productionDate", "2013-03-09"),
             /**
              * todo support more than one keyword
              */
             new CategoryPath("keyword", "butter"),
             new CategoryPath("topicClassification", "Cooking"),
-            new CategoryPath("dvName", "Homer Simpson"),},
+            new CategoryPath("dvName", "Homer Simpson Dataverse"),},
+        {
+            new CategoryPath("author", "Simpson, Homer"),
+            new CategoryPath("productionDate", "2013-03-09"),
+            new CategoryPath("keyword", "football"),
+            new CategoryPath("topicClassification", "TV"),
+            new CategoryPath("dvName", "Homer Simpson Dataverse"),},
         {
             new CategoryPath("author", "Flanders, Ned"),
             new CategoryPath("productionDate", "2013-03-10"),
             new CategoryPath("keyword", "scripture"),
             new CategoryPath("topicClassification", "Religion"),
-            new CategoryPath("dvName", "Ned Flanders"),},
+            new CategoryPath("dvName", "Ned Flanders Dataverse"),},
         {
             new CategoryPath("author", "Wiggum, Clancy"),
-            new CategoryPath("productionDate", "2012-03-09"),
+            new CategoryPath("productionDate", "2013-03-09"),
             new CategoryPath("keyword", "pastries"),
             new CategoryPath("topicClassification", "Cooking"),
-            new CategoryPath("dvName", "Clancy Wiggum"),},};
+            new CategoryPath("dvName", "Clancy Wiggum Dataverse"),},};
     /**
      * Analyzer used in the simple sample.
      */

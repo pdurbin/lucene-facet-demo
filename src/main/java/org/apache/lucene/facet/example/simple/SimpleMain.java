@@ -63,6 +63,8 @@ public class SimpleMain {
         ExampleUtils.log("================================");
 
         CategoryPath categoryPathOfInterest = new CategoryPath("topicClassification", "Cooking");
+//        CategoryPath categoryPathOfInterest = new CategoryPath("productionDate", "2013-03-09");
+//        CategoryPath categoryPathOfInterest = new CategoryPath("author", "Simpson, Homer");
 //        CategoryPath categoryPathOfInterest = new CategoryPath("author", "Flanders, Ned");
         ExampleUtils.log("Running runDrillDown() with faceted search for \"" + categoryPathOfInterest.toString() + "\"");
         List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown(categoryPathOfInterest).getFacetResults();
