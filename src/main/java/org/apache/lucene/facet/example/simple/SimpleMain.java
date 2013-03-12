@@ -47,19 +47,16 @@ public class SimpleMain {
     public static void main(String[] args) throws Exception {
         ExampleUtils.log("Running runSimple()...");
         List<FacetResult> exampleResultSimpleList = new SimpleMain().runSimple().getFacetResults();
-        ExampleUtils.log("Interating through facet results...");
-        for (Iterator<FacetResult> it = exampleResultSimpleList.iterator(); it.hasNext();) {
-            FacetResult facetResult = it.next();
-            //            ExampleUtils.log("Dumping facet result from runSimple..." + facetResult.toString());
-            ExampleUtils.log("CategoryPath label: " + facetResult.getFacetResultNode().getLabel());
+        int numSimpleResults = exampleResultSimpleList.size();
+        ExampleUtils.log("Iterating through " + numSimpleResults + " facets/categories...");
+        for (int i = 0; i < exampleResultSimpleList.size(); i++) {
+            FacetResult facetResult = exampleResultSimpleList.get(i);
+            ExampleUtils.log("- category " + i + ": " + facetResult.getFacetResultNode().getLabel());
             for (FacetResultNode n : facetResult.getFacetResultNode().getSubResults()) {
                 CategoryPath label = n.getLabel();
                 String last = n.getLabel().lastComponent().toString();
-                double value = n.getValue();
-                ExampleUtils.log("label = " + label);
-                ExampleUtils.log("last = " + last);
-                ExampleUtils.log("value = " + value);
-                ExampleUtils.log("---");
+                double hits = n.getValue();
+                ExampleUtils.log("  - expect " + hits + " hits from a faceted search for \"" + label + "\"");
             }
         }
 
@@ -67,18 +64,18 @@ public class SimpleMain {
 
         CategoryPath categoryPathOfInterest = new CategoryPath("topicClassification", "Cooking");
 //        CategoryPath categoryPathOfInterest = new CategoryPath("author", "Flanders, Ned");
-        ExampleUtils.log("Running runDrillDown() with category path " + categoryPathOfInterest.toString());
+        ExampleUtils.log("Running runDrillDown() with faceted search for \"" + categoryPathOfInterest.toString() + "\"");
         List<FacetResult> exampleResultDrillDownList = new SimpleMain().runDrillDown(categoryPathOfInterest).getFacetResults();
-        int numResults = exampleResultDrillDownList.size();
-        ExampleUtils.log("Iterating though " + numResults + " facet results for facet query \"" + categoryPathOfInterest.toString() + "\"");
+        int numDrillDownResults = exampleResultDrillDownList.size();
+        ExampleUtils.log("Iterating though " + numDrillDownResults + " facets/categories for facet query \"" + categoryPathOfInterest.toString() + "\"");
         for (int i = 0; i < exampleResultDrillDownList.size(); i++) {
             FacetResult facetResult = exampleResultDrillDownList.get(i);
-            ExampleUtils.log("Facet result " + i + " label: " + facetResult.getFacetResultNode().getLabel());
+            ExampleUtils.log("- category " + i + ": " + facetResult.getFacetResultNode().getLabel());
             for (FacetResultNode n : facetResult.getFacetResultNode().getSubResults()) {
                 CategoryPath label = n.getLabel();
                 String last = n.getLabel().lastComponent().toString();
                 double hits = n.getValue();
-                ExampleUtils.log("  Hits for " + label + ": " + hits);
+                ExampleUtils.log("  - hits for " + label + ": " + hits);
             }
         }
         ExampleUtils.log("DONE");
