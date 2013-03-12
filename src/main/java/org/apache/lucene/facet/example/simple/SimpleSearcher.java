@@ -3,6 +3,7 @@ package org.apache.lucene.facet.example.simple;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.lucene.document.Document;
 
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
@@ -24,6 +25,7 @@ import org.apache.lucene.facet.search.results.FacetResult;
 import org.apache.lucene.facet.search.results.FacetResultNode;
 import org.apache.lucene.facet.taxonomy.CategoryPath;
 import org.apache.lucene.facet.taxonomy.TaxonomyReader;
+import org.apache.lucene.search.ScoreDoc;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -113,7 +115,8 @@ public class SimpleSearcher {
         IndexSearcher searcher = new IndexSearcher(indexReader);
 
         // collect matching documents into a collector
-        TopScoreDocCollector topDocsCollector = TopScoreDocCollector.create(10, true);
+//        TopScoreDocCollector topDocsCollector = TopScoreDocCollector.create(10, true);
+        DocumentCollector documentCollector = new DocumentCollector(searcher);
 
         if (indexingParams == null) {
             indexingParams = new DefaultFacetIndexingParams();
@@ -130,8 +133,16 @@ public class SimpleSearcher {
         FacetsCollector facetsCollector = new FacetsCollector(facetSearchParams, indexReader, taxoReader);
 
         // perform documents search and facets accumulation
-        searcher.search(q, MultiCollector.wrap(topDocsCollector, facetsCollector));
+//        searcher.search(q, MultiCollector.wrap(topDocsCollector, facetsCollector));
+        searcher.search(q, MultiCollector.wrap(documentCollector, facetsCollector));
 
+        List hits = documentCollector.getStudies();
+        ExampleUtils.log("Found " + hits.size() + " documents with query " + "\"" + q + "\"");
+        for (int i = 0; i < hits.size(); i++) {
+            ScoreDoc scoreDoc = (ScoreDoc) hits.get(i);
+            Document d = searcher.doc(scoreDoc.doc);
+            ExampleUtils.log("- title " + i + ": " + d.get("title"));
+        }
         // Obtain facets results and print them
         List<FacetResult> res = facetsCollector.getFacetResults();
 
@@ -169,7 +180,7 @@ public class SimpleSearcher {
         for (int i = 0; i < countFacetRequestsList.size(); i++) {
             countFacetRequestsArray[i] = countFacetRequestsList.get(i);
         }
-        
+
         // initial search - all docs matching the base query will contribute to the accumulation 
         List<FacetResult> res1 = searchWithRequest(indexReader, taxoReader, null, countFacetRequestsArray);
 
